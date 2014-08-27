@@ -50,7 +50,7 @@
                     },
                 };
 
-                config1 = $.extend(grindster_config, {
+                config1 = $.extend({}, grindster_config, {
                     draggable: {
                         stop: function (){
                             reproduce();
