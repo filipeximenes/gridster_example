@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <style type="text/css">
+            .blue {
+                background-color: blue;
+            }
+            .red {
+                background-color: red;
+            }
+            .gridster div{
+                position: absolute;
+            }
+            .gridster2 div{
+                position: absolute;
+            }
+        </style>
+        <style type="text/css" href="static/jquery.gridster.min.css"></style>
+    </head>
+    <body>
+        <div class="gridster">
+            <div data-row="3" data-col="3" data-sizex="1" data-sizey="1" class="blue"></div>
+            <div data-row="1" data-col="3" data-sizex="1" data-sizey="1" class="blue"></div>
+            <div data-row="2" data-col="3" data-sizex="1" data-sizey="1" class="blue"></div>
+            <div data-row="1" data-col="4" data-sizex="2" data-sizey="1" class="blue"></div>
+            <div data-row="2" data-col="4" data-sizex="2" data-sizey="2" class="blue"></div>
+        </div>
+
+        <div class="gridster2">
+
+        </div>
+        
+        <script type="text/javascript" src="static/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="static/jquery.gridster.min.js"></script>
+
+        <script type="text/javascript">
+            var gridster;
+            var gridster2;
+            
+            $(document).ready(function(){
+                var grindster_config = {
+                    widget_margins: [10, 10],
+                    widget_base_dimensions: [140, 140],
+                    widget_selector: 'div',
+                    serialize_params: function($w, wgd){
+                        return { 
+                            id: $w.data('id'), 
+                            col: wgd.col, row: wgd.row, 
+                            size_x: wgd.size_x, size_y: wgd.size_y 
+                        }
+                    },
+                };
+
+                config1 = $.extend(grindster_config, {
+                    draggable: {
+                        stop: function (){
+                            reproduce();
+                        }
+                    }
+                })
+
+                gridster = $(".gridster").gridster(config1).data('gridster');
+                gridster2 = $(".gridster2").gridster(grindster_config).data('gridster');
+
+                reproduce();
+            });
+
+            function reproduce (){
+                var itens = gridster.serialize();
+
+                gridster2.remove_all_widgets();
+                $.each(itens, function(){
+                    gridster2.add_widget('<div class="red"></div>', 
+                        this.size_x, this.size_y, this.col, this.row);
+                })
+            }
+        </script>
+    </body>
+</html>
