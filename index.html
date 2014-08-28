@@ -53,7 +53,7 @@
                 config1 = $.extend({}, grindster_config, {
                     draggable: {
                         stop: function (){
-                            reproduce();
+                            mimic();
                         }
                     }
                 })
@@ -61,10 +61,10 @@
                 gridster = $(".gridster").gridster(config1).data('gridster');
                 gridster2 = $(".gridster2").gridster(grindster_config).data('gridster');
 
-                reproduce();
+                mimic();
             });
 
-            function reproduce (){
+            function mimic (){
                 var itens = gridster.serialize();
 
                 gridster2.remove_all_widgets();
